@@ -1,6 +1,6 @@
 
 'use client';
-import React, { useCallback, useState } from 'react'
+import React, { use, useCallback, useEffect, useState } from 'react'
 import { product } from '../../utils/product';
 import Image from 'next/image';
 import { Rating } from '@mui/material';
@@ -8,6 +8,9 @@ import SetColor from '../components/products/SetColor';
 import SetQuantity from '../components/products/SetQuantity';
 import Button from '../components/Button';
 import ProductImage from '../components/products/ProductImage';
+import { useCart } from '@/hooks/useCart';
+import { MdCheckCircle } from 'react-icons/md';
+import { useRouter } from 'next/navigation';
 interface ProductDetailsProps{
     product:any
 }
@@ -31,16 +34,35 @@ const Horizontal = () => {
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
+    const [isProductInCart,setIsProductInCart] = useState(false)
+    //call from useCart
+    const {handleAddProductToCart,cartProducts}=useCart()
+    
     const [cartProduct, setCartProduct] = useState<CartProductType>({
-         id: product.id,
-    name: product.name,
-    description: product.description,
-    category: product.category,
-    brand: product.brand,
-    selectedImg: {...product.images[0]},
-    quantity: 1,
-    price: product.price  
-    })
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        category: product.category,
+        brand: product.brand,
+        selectedImg: { ...product.images[0] },
+        quantity: 1,
+        price: product.price
+    });
+
+    //use router
+    const router = useRouter();
+//LOGIC to check if product is already in cart
+    useEffect(() => {
+        setIsProductInCart(false);
+        if (cartProducts) {
+            const existingIndex =
+                cartProducts.findIndex((item) => item.id === product.id)    
+            if (existingIndex > -1) {
+                setIsProductInCart(true);
+            }
+            }  
+    },[cartProducts])
+//end of useeffct fo product check
     const productRating =
         product.reviews.reduce((acc: number, item: any) =>
         item.rating + acc, 0) / product.reviews.length
@@ -97,7 +119,18 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                     {product.inStock ? 'in stock' : 'Out of stock'}
                 </div>
                 <Horizontal />
-                <SetColor
+                {isProductInCart ? <>
+                    <p className='mb-2 flex items-center gap-1 text-slate-500'>
+                        <MdCheckCircle size={20} className='text-teal-400' />
+                        <span>Product added to cart</span>
+                    </p>
+                    <div className='max-w-[300px]'>
+                        <Button lable='View Cart' outline onClick={() => {
+                            router.push('/cart')
+                        }} />
+                    </div>
+                </> : <>
+                    <SetColor
                     cartProduct={cartProduct}
                     images={product.images}
                     handleColorSelect={handleColorSelect} 
@@ -114,13 +147,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                         lable='Add to cart'
                         // outline
                         // small
-                        onClick={() => {
-                        
-                        }}
+                        onClick={() => handleAddProductToCart(cartProduct)} 
                     />
-                </div>
+                 </div>
+                </>}
             </div>
       </div>
+                
   )
 }
 
