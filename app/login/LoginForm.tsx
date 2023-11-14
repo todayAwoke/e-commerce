@@ -9,11 +9,10 @@ import { FieldValues,SubmitHandler,useForm  } from 'react-hook-form';
 //import { FieldValues } from 'react-hook-form';
 import Avater from '../components/Avater';
 import Link from 'next/link';
-const RegisterForm = () => {
+const LoginForm = () => {
     const [isloading,setIsLoading] =useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
         defaultValues: {
-            name:'',
             email: '',
             password:''
             
@@ -27,22 +26,16 @@ const RegisterForm = () => {
 
     return (
         <> 
-            <Heading title='Sign up for E-commerce' />
+            <Heading title='Sign in for E-commerce' />
             <Button
+                
                 outline
-                label='Sign up with Google'
+                label='Countinue with Google'
                 icon={AiOutlineGoogle}
                 onClick={()=>{}}
             />
             <hr className='bg-slate-300 w-full h-px' />
-            <Input
-                id="name"
-                label="Name"
-                disabled={isloading}
-                register={register}
-                errors={errors}
-                required
-            />
+            
             <Input
                 id="email"
                 label="Email"
@@ -60,18 +53,18 @@ const RegisterForm = () => {
                 required
                 type='password'
             />
-            <Button label={isloading ? "Loading" : "Sign up"}
+            <Button label={isloading ? "Loading" : "Login"}
             onClick={handleSubmit(onSubmit)}
             />
-            <p className='text-sm '>Already have an account?
+            <p className='text-sm '>Do not  have an account?
                 <Link
                     className='underline'
-                    href={'/login'}>
-                    Login
+                    href={'/register'}>
+                        Sign up
                 </Link>
             </p>
         </>
     );
 }
 
-export default RegisterForm
+export default LoginForm

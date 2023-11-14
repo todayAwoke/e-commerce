@@ -1,7 +1,6 @@
 'use client'
 
 import { UseFormRegister,FieldValues, FieldErrors } from "react-hook-form";
-
 interface InputProps{
     id: string;
     label: string;
@@ -21,7 +20,7 @@ const Input: React.FC<InputProps> = ({
     errors
 }) => {
   return (
-      <div className="w-full relative ">
+      <div className="w-full  relative ">
           <input
               autoComplete="off"
               id={id}
@@ -33,6 +32,8 @@ const Input: React.FC<InputProps> = ({
               {`peer
               w-full
               pt-6
+              mb-4
+            
               outline-none
               bg-white
               font-light
