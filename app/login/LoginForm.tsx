@@ -9,7 +9,11 @@ import { FieldValues,SubmitHandler,useForm  } from 'react-hook-form';
 //import { FieldValues } from 'react-hook-form';
 import Avater from '../components/Avater';
 import Link from 'next/link';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 const LoginForm = () => {
+    const router = useRouter();
     const [isloading,setIsLoading] =useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
         defaultValues: {
@@ -21,8 +25,22 @@ const LoginForm = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
+        signIn('credentials', {
+            ...data,
+            redirec:false,
+        }).then((callback) => {
+            setIsLoading(false);
+            if (callback?.ok) {
+                        router.push('/cart')
+                        router.refresh()
+                        toast.success("login success")
+                    }
+                    if (callback?.error) {
+                        toast.error(callback.error)
+                    }
+        });
     }
-        
+   // console.log(email,password);    
 
     return (
         <> 

@@ -2,6 +2,8 @@ import Link from 'next/link'
 import Container from '../Container'
 import { Redressed } from 'next/font/google'
 import CartCount from './CartCount'
+import LoginForm from '@/app/login/LoginForm'
+import UserMenu from './UserMenu'
 const redressed =Redressed({subsets:['latin'],weight:["400"]})
 const Navbar = () => {
     return (
@@ -21,7 +23,13 @@ const Navbar = () => {
                              gap-8
                             md:gap-12'>
                                 <CartCount/>
-                                <div>UserMenu</div>
+                            <div>
+                                <Link href={'./login'}>login</Link>
+                                {/* <LoginForm/> */}
+                            </div>
+                            <div>
+                                <UserMenu/>
+                            </div>
                     
                         </div>
                         </div> 

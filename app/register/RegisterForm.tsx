@@ -9,22 +9,50 @@ import { FieldValues,SubmitHandler,useForm  } from 'react-hook-form';
 //import { FieldValues } from 'react-hook-form';
 import Avater from '../components/Avater';
 import Link from 'next/link';
+import axios from 'axios';
+import {signIn} from 'next-auth/react'
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+//import { data } from 'autoprefixer';
 const RegisterForm = () => {
-    const [isloading,setIsLoading] =useState(false)
+    const router = useRouter();
+    const [isloading, setIsLoading] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
         defaultValues: {
-            name:'',
+            name: '',
             email: '',
-            password:''
+            password: ''
             
         }
     })
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
-    }
+        //to fetch data from server
+        axios.post("/api/register", data)
+            .then(() => {
+                toast.success("accout created successfully")
         
-
+                signIn('credentials', {
+                    email: data.email,
+                    password: data.password,
+                    redirect: false
+                }).then((callback) => {
+                    if (callback?.ok) {
+                        router.push('/cart')
+                        router.refresh(
+                        )
+                        toast.success("login success")
+                    }
+                    if (callback?.error) {
+                        toast.error(callback.error)
+                    }
+                })
+            }).catch((er) => toast.error("error handling"))
+            .finally(() => {
+                setIsLoading(false)
+            })  
+    };
     return (
         <> 
             <Heading title='Sign up for E-commerce' />
