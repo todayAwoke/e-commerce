@@ -17,7 +17,7 @@ const LoginForm = () => {
     const [isloading,setIsLoading] =useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
         defaultValues: {
-            email: '',
+            username: '',
             password:''
             
         }
@@ -25,38 +25,24 @@ const LoginForm = () => {
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
-        signIn('credentials', {
-            ...data,
-            redirec:false,
-        }).then((callback) => {
-            setIsLoading(false);
-            if (callback?.ok) {
-                        router.push('/cart')
+        
+    
+                        router.push('/profile')
                         router.refresh()
-                        toast.success("login success")
-                    }
-                    if (callback?.error) {
-                        toast.error(callback.error)
-                    }
-        });
+                        toast.success("login success")                
+       
     }
    // console.log(email,password);    
 
     return (
         <> 
-            <Heading title='Sign in for E-commerce' />
-            <Button
-                
-                outline
-                label='Countinue with Google'
-                icon={AiOutlineGoogle}
-                onClick={()=>{}}
-            />
+            <Heading title='Sign in for hasab' />
+           
             <hr className='bg-slate-300 w-full h-px' />
             
             <Input
-                id="email"
-                label="Email"
+                id="username"
+                label="username"
                 disabled={isloading}
                 register={register}
                 errors={errors}

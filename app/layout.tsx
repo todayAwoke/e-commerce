@@ -8,7 +8,7 @@ import { Toaster } from 'react-hot-toast'
 const Poppin = Poppins({ subsets: ['latin'],weight:['400','700'] })
 
 export const metadata: Metadata = {
-  title: 'My ecommerce',
+  title: 'Hasab ',
   description: 'my ecommerce website is available',
 }
 

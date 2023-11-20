@@ -9,6 +9,8 @@ const container:React.FC<ContainerProps> = ({children}) => {
        mx-auto 
       xl:px-20
       md:px-2
+      bg-blue-400
+  
        px-4 '>
       {children}
     </div>

@@ -19,61 +19,29 @@ const RegisterForm = () => {
     const [isloading, setIsLoading] = useState(false)
     const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
         defaultValues: {
-            name: '',
-            email: '',
+            username: '',
+            
             password: ''
             
         }
     })
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        setIsLoading(true);
-        //to fetch data from server
-        axios.post("/api/register", data)
-            .then(() => {
-                toast.success("accout created successfully")
+    
+            router.push('/profile')
+            router.refresh(
+            )
+            toast.success("login success");
         
-                signIn('credentials', {
-                    email: data.email,
-                    password: data.password,
-                    redirect: false
-                }).then((callback) => {
-                    if (callback?.ok) {
-                        router.push('/cart')
-                        router.refresh(
-                        )
-                        toast.success("login success")
-                    }
-                    if (callback?.error) {
-                        toast.error(callback.error)
-                    }
-                })
-            }).catch((er) => toast.error("error handling"))
-            .finally(() => {
-                setIsLoading(false)
-            })  
-    };
+    }
     return (
         <> 
-            <Heading title='Sign up for E-commerce' />
-            <Button
-                outline
-                label='Sign up with Google'
-                icon={AiOutlineGoogle}
-                onClick={()=>{}}
-            />
+            <Heading title='Sign up for Hasab' />
+           
             <hr className='bg-slate-300 w-full h-px' />
             <Input
-                id="name"
-                label="Name"
-                disabled={isloading}
-                register={register}
-                errors={errors}
-                required
-            />
-            <Input
-                id="email"
-                label="Email"
+                id="username"
+                label="userName"
                 disabled={isloading}
                 register={register}
                 errors={errors}

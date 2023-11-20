@@ -10,30 +10,28 @@ const Navbar = () => {
         <div className=' sticky
         top-0
         w-full
-        bg-slate-200
+      bg-slate-700 text-slate-200
         z-30
         shadow-sm' >
-            <div className='py-4 border-b-[1px]'>
-                <Container>
+            <div className='py-2 border-b-[1px]'>
+                {/* <Container> */}
                     <div className='flex items-center justify-between gap-3 md:gap-0'>
-                        <Link href={'/'} className={`${redressed.className} font-bold text-2xl`}>E-Shop</Link>
-                   <div className='hidden md:block'>Search</div>
-                        <div className='
-                            flex items-center 
+                        <Link href={'/'} className={`${redressed.className} font-bold text-2xl`}>Hasab</Link>
+                        <div className=' justify-end flex flex-row items-center 
                              gap-8
                             md:gap-12'>
-                                <CartCount/>
-                            <div>
-                                <Link href={'./login'}>login</Link>
-                                {/* <LoginForm/> */}
-                            </div>
+                           <Link href={'/'} >Home</Link>
+                            <Link href={'/'} >About</Link>
+                            <Link href={'/'} >Contact</Link>
+                            <Link href={'./register'}>Signup</Link>
+                            <Link href={'./login'}>login</Link>
+                          
                             <div>
                                 <UserMenu/>
                             </div>
-                    
                         </div>
                         </div> 
-               </Container>
+               {/* </Container> */}
             </div>
         </div>
     )

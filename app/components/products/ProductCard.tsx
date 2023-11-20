@@ -5,21 +5,18 @@ import Image from 'next/image';
 import React from 'react'
 import {Rating} from '@mui/material';
 import { useRouter } from 'next/navigation';
-interface ProductCardProps{
-    data:any;
-}
-const ProductCard: React.FC<ProductCardProps> = ({ data }) => { 
+
+const ProductCard = () => { 
   const router=useRouter();
-    const productRating = data.reviews.reduce((acc: number, item: any) => item.rating + acc, 0) / data.reviews.length
+    
     return (
         <div
-        onClick={()=>router.push(`/product/${data.id}`)}
+        
             className='
             col-span-1 
             cursor-pointer
             border-[1.2px]
-            border-slate-200
-            bg-slate-50
+            bg-blue-400
             rounded-sm
             p-2
             transition
@@ -27,21 +24,65 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
             text-center
             text-sm'>
           
-          <div className='flex flex-col  w-full gap-1'>
-                <div className='aspect-square overflow-hidden relative w-full '>
-                  <Image
-                      fill
-                      src={data.images[0].image}
-                      alt={data.name}
-                      className="w-full object-contain"/>
-               </div>
-              <div className='mt-4 '>{truncateText(data.name)} </div>
-              <div> <Rating value={ productRating} readOnly /> </div>
-              <div> {data.reviews.length}reviews</div>
-              <div className='font-semibold'>{formatPrice(data.price)} </div>
-           
+          <div className="grid grid-cols-4  gap-3 ">
+         <div className="col-span-1">
+           <div className="grid grid-cols-1 gap-3">
+  <div>
+   
+        <input type="text" placeholder="Search" className="w-full p-2 border border-gray-300 rounded-md" />                
+                        </div>
+                        
+  <div className='gap-3'>
+  <div>
+    <div className="aspect-w-5 aspect-h-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID" className="w-24 h-16 p-3 mx-3"></iframe>
         </div>
-     </div> 
+    </div>
+    <div className="aspect-w-5 aspect-h-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID" className="w-24 h-16 p-3 mx-3"></iframe>
+             </div>
+         <div className="aspect-w-5 aspect-h-4">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID" className="w-24 h-16 p-3 mx-3"></iframe>
+    </div>
+                            
+  </div>
+</div>
+            </div>
+        <div className="col-span-2">
+         <textarea className="w-full h-full p-2 border border-gray-300 rounded-md" placeholder="Vent here"></textarea>
+                </div>
+                {/* right side bare */}
+          <div className="col-span-1">
+        <div className="grid grid-cols-2 gap-4">
+     
+      <div className="col-span-2">
+        <div className="grid grid-cols-1 gap-4">
+         <div className="p-4 shadow rounded-md">
+           
+            <h3 className="text-lg font-bold mb-2">News Blog Title</h3>
+          
+            <p className="text-gray-800">News blog content goes here.</p>
+          </div>
+        
+        
+          <div className="p-4 shadow rounded-md">
+            <h3 className="text-lg font-bold mb-2">News Blog Title</h3>
+            <p className="text-gray-800">News blog content goes here.</p>
+                </div>
+                  <div className="p-4 shadow rounded-md">
+            <h3 className="text-lg font-bold mb-2">News Blog Title</h3>
+            <p className="text-gray-800">News blog content goes here.</p>
+          </div>
+        
+         
+        
+        </div>
+      </div>
+    </div>
+           </div>
+     </div>
+           </div>
+     
   )
 }
 
